@@ -214,26 +214,10 @@ SeaWhisper cung cấp:
 - CloudFront cho CDN
 - CloudWatch cho monitoring
 
-## Roadmap
-
-### Phase 1 (MVP) - 3 tháng
-
-- Chức năng cơ bản: thả chai, nhặt chai, phản hồi
-- AI filter cơ bản
-- Giao diện đơn giản
-
-### Phase 2 - 2 tháng
-
-- Thư mục cảm xúc
-- Cải thiện AI filter
-- Báo cáo và kiểm duyệt
-
-### Phase 3 - 2 tháng
-
-- Tính năng nâng cao
-- Tối ưu hiệu suất
-- Mở rộng cộng đồng
+## Liên kết
+[WIKI](https://github.com/btlmobile/.github/wiki)
+[Planning](https://github.com/orgs/btlmobile/projects/2)
 
 ---
 
-_Dự án được phát triển bởi team BTL Mobile - 2024_
+_Dự án được phát triển bởi team invest_
