@@ -191,32 +191,18 @@ SeaWhisper cung cấp:
 
 ### Frontend
 
-- React Native cho mobile app
-- Redux cho state management
-- React Navigation cho điều hướng
 
 ### Backend
 
-- Node.js với Express.js
-- MongoDB cho database
-- Redis cho caching
-- Socket.io cho real-time communication
 
-### AI/ML
-
-- TensorFlow.js cho sentiment analysis
-- Custom toxic detection model
-- Natural Language Processing cho tiếng Việt
+### AI
 
 ### Infrastructure
 
-- AWS/GCP cho hosting
-- CloudFront cho CDN
-- CloudWatch cho monitoring
 
 ## Liên kết
-[WIKI](https://github.com/btlmobile/.github/wiki)
-[Planning](https://github.com/orgs/btlmobile/projects/2)
+- [WIKI](https://github.com/btlmobile/.github/wiki)
+- [Planning](https://github.com/orgs/btlmobile/projects/2)
 
 ---
 
