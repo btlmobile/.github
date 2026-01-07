@@ -1,157 +1,74 @@
-\documentclass[12pt,a4paper]{report}
+\documentclass[12pt,a4paper]{article}
 
-% ================== GÓI TIẾNG VIỆT & CƠ BẢN ==================
-\usepackage[utf8]{inputenc}
+% =============== TIẾNG VIỆT ===============
 \usepackage[utf8]{vntex}
 \usepackage[english,vietnamese]{babel}
-
-% ================== GÓI HỖ TRỢ ĐỊNH DẠNG ==================
-\usepackage{geometry}
-\geometry{
-    a4paper,
-    left=20mm,
-    right=20mm,
-    top=20mm,
-    bottom=25mm
-}
-\usepackage{setspace}
-\onehalfspacing % Dãn dòng 1.5
-\usepackage{indentfirst} % Thụt đầu dòng đoạn đầu tiên
-\usepackage{float}       % Định vị hình ảnh [H]
-\usepackage[dvipsnames]{xcolor} % Màu sắc
-\usepackage{graphicx}    % Chèn ảnh
-\usepackage{array}       % Hỗ trợ bảng
-\usepackage{tabularx}
-\usepackage{booktabs}
-\usepackage{multirow}
-\usepackage{multicol}
-\usepackage{subcaption}  % Hình phụ
-
-% ================== TRANG TRÍ & VẼ HÌNH (CHO TRANG BÌA) ==================
+\selectlanguage{vietnamese}
+\usepackage[utf8]{inputenc}
 \usepackage{tikz}
-\usetikzlibrary{arrows,snakes,backgrounds,calc}
+\usetikzlibrary{calc}
 
-% ================== HEADER / FOOTER (CHUẨN BÁCH KHOA) ==================
-\usepackage{fancyhdr}
-\setlength{\headheight}{40pt}
-\pagestyle{fancy}
-\fancyhead{} % Xóa header mặc định
-\fancyfoot{} % Xóa footer mặc định
+% =============== CƠ BẢN ===============
+\usepackage{geometry}
+\usepackage{csquotes}
+\usepackage{setspace}
+\usepackage{indentfirst}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{amsmath}
+\usepackage{hyperref}
 
-% Footer trái: Tên Khoa/Trường
-\fancyfoot[L]{\scriptsize \ttfamily Khoa Khoa Học và Kỹ Thuật Máy Tính}
-% Footer phải: Số trang
-\fancyfoot[R]{\scriptsize \ttfamily Trang {\thepage}}
-
-\renewcommand{\headrulewidth}{0pt}   % Không kẻ vạch trên header
-\renewcommand{\footrulewidth}{0.3pt} % Kẻ vạch dưới footer
-
-% ================== CODE LISTINGS (TRÌNH BÀY CODE ĐẸP) ==================
-\usepackage{listings}
-\definecolor{codebg}{RGB}{245,245,245}
-\definecolor{codeframe}{RGB}{200,200,200}
-\lstdefinestyle{report}{
-    backgroundcolor=\color{codebg},
-    frame=single,
-    rulecolor=\color{codeframe},
-    basicstyle=\ttfamily\small,
-    keywordstyle=\color{blue}\bfseries,
-    commentstyle=\color{green!60!black},
-    stringstyle=\color{red},
-    breaklines=true,
-    captionpos=b,
-    tabsize=2,
-    numbers=left,
-    numberstyle=\tiny\color{gray}
-}
-\lstset{style=report}
-
-% ================== TÀI LIỆU THAM KHẢO (BIBLATEX) ==================
+% =============== TRÍCH DẪN ===============
 \usepackage[
-    backend=biber,
-    style=numeric,
-    sorting=none,
-    language=english
+  backend=biber,
+  style=numeric,
+  sorting=none,
+  language=english
 ]{biblatex}
-\addbibresource{refs.bib} % Đảm bảo bạn có file refs.bib
+\addbibresource{refs.bib}
 
-% ================== TIÊU ĐỀ CHƯƠNG (FORMAT LẠI CHO GỌN) ==================
-\usepackage{titlesec}
-\titleformat{\chapter}[hang]{\bfseries\LARGE\uppercase}{\thechapter.}{1em}{}
-\titlespacing*{\chapter}{0pt}{-20pt}{20pt}
+% =============== LỀ + GIÃN DÒNG ===============
+\geometry{a4paper,left=20mm,right=20mm,top=20mm,bottom=25mm}
+\onehalfspacing
 
-% ================== LIÊN KẾT (HYPERREF) ==================
-\usepackage[unicode,hidelinks]{hyperref}
-\hypersetup{
-    colorlinks=false,
-    pdfborder={0 0 0}
-}
+% =============== HYPERREF ===============
+\hypersetup{hidelinks,colorlinks=false}
 
-% Đổi tên các thành phần sang tiếng Việt (nếu babel chưa tự đổi hết)
 \renewcommand{\contentsname}{Mục lục}
-\renewcommand{\listfigurename}{Danh sách hình vẽ}
-\renewcommand{\listtablename}{Danh sách bảng}
-\renewcommand{\bibname}{Tài liệu tham khảo}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{document}
 
-% ===================== TRANG BÌA =====================
-% Gọi file trang bìa riêng để code gọn gàng
-\input{content/00_titlepage.tex} 
+% ===== TRANG BÌA =====
+\input{Content/titlepage.tex}
 
-% ===================== PHẦN ĐẦU (FRONT MATTER) =====================
-\pagenumbering{roman} % Đánh số La Mã (i, ii, iii...)
+% ===== TÓM TẮT =====
+\newpage
+\input{Content/abstract}
 
-% Lời cam đoan (nếu cần thì bỏ comment tạo file)
-%\input{content/protestation} 
-
-% Lời cảm ơn (nếu cần thì bỏ comment tạo file)
-%\input{content/acknowledgements}
-
-% Tóm tắt (nếu cần thì bỏ comment tạo file)
-%\input{content/abstract}
-
-% Mục lục
+% ===== MỤC LỤC =====
 \newpage
 \tableofcontents
-
-% Danh sách hình & bảng
 \newpage
-\listoffigures
+
+% ===== NỘI DUNG CHÍNH =====
+\input{Content/introduction}
+\input{Content/methodology}
+\input{Content/features}
+\input{Content/implementation}
+% \input{Content/ux}
+% \input{Content/architecture}
+% \input{Content/api_design}
+% \input{Content/deployment}
+% \input{Content/testing}
+% \input{Content/survey_analytics}
+% \input{Content/evaluation_improvement}
+% \input{Content/conclusion}
+
+% ===== TÀI LIỆU THAM KHẢO =====
 \newpage
-\listoftables
-
-% ===================== NỘI DUNG CHÍNH (MAIN MATTER) =====================
-\newpage
-\pagenumbering{arabic} % Đánh số 1, 2, 3...
-\setcounter{page}{1}
-\setcounter{table}{0}
-\setcounter{figure}{0}
-
-% --- CÁC CHƯƠNG NỘI DUNG ---
-\input{content/01_introduction}
-\input{content/02_methodology}
-\input{content/03_features}
-\input{content/04_implementation}
-\input{content/05_ux}
-\input{content/06_architecture}
-\input{content/07_webservice}
-\input{content/08_deployment}
-\input{content/09_testing}
-\input{content/10_analytics}
-\input{content/11_evaluation}
-
-% ===================== PHẦN CUỐI (BACK MATTER) =====================
-
-% Tài liệu tham khảo
-\newpage
-\phantomsection
-\addcontentsline{toc}{chapter}{Tài liệu tham khảo}
+\addcontentsline{toc}{section}{Tài liệu tham khảo}
 \printbibliography
-
-% Phụ lục (nếu có)
-%\newpage
-%\input{content/appendices}
 
 \end{document}

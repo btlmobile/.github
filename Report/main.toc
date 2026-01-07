@@ -1,1 +1,30 @@
 \babel@toc {vietnamese}{}\relax 
+\babel@toc {vietnamese}{}\relax 
+\contentsline {section}{Tóm tắt}{1}{section*.1}%
+\contentsline {section}{\numberline {1}Giới thiệu}{3}{section.1}%
+\contentsline {subsection}{\numberline {1.1}Bối cảnh và vấn đề}{3}{subsection.1.1}%
+\contentsline {subsection}{\numberline {1.2}Mục tiêu dự án}{3}{subsection.1.2}%
+\contentsline {subsection}{\numberline {1.3}Phạm vi và đối tượng hướng tới}{3}{subsection.1.3}%
+\contentsline {subsection}{\numberline {1.4}Giá trị thực tiễn và tác động}{3}{subsection.1.4}%
+\contentsline {subsection}{\numberline {1.5}Cấu trúc báo cáo}{4}{subsection.1.5}%
+\contentsline {section}{\numberline {2}Phương pháp và quy trình thực hiện}{4}{section.2}%
+\contentsline {subsection}{\numberline {2.1}Cách tiếp cận phát triển}{4}{subsection.2.1}%
+\contentsline {subsection}{\numberline {2.2}Quy trình làm việc nhóm}{4}{subsection.2.2}%
+\contentsline {subsection}{\numberline {2.3}Công cụ và nền tảng sử dụng}{5}{subsection.2.3}%
+\contentsline {subsection}{\numberline {2.4}Quyết định phạm vi MVP}{5}{subsection.2.4}%
+\contentsline {subsection}{\numberline {2.5}Đánh giá phương pháp}{5}{subsection.2.5}%
+\contentsline {section}{\numberline {3}Tính năng và chức năng hệ thống}{5}{section.3}%
+\contentsline {subsection}{\numberline {3.1}Tổng quan các tính năng}{5}{subsection.3.1}%
+\contentsline {subsection}{\numberline {3.2}Gửi chai (Send Bottle)}{6}{subsection.3.2}%
+\contentsline {subsection}{\numberline {3.3}Nhận chai ngẫu nhiên (Receive Bottle)}{6}{subsection.3.3}%
+\contentsline {subsection}{\numberline {3.4}Phản hồi cảm xúc}{6}{subsection.3.4}%
+\contentsline {subsection}{\numberline {3.5}Lưu trữ và xem lại chai}{7}{subsection.3.5}%
+\contentsline {subsection}{\numberline {3.6}Giới hạn của MVP}{7}{subsection.3.6}%
+\contentsline {section}{\numberline {4}Triển khai hệ thống}{7}{section.4}%
+\contentsline {subsection}{\numberline {4.1}Tổng quan}{7}{subsection.4.1}%
+\contentsline {subsection}{\numberline {4.2}Triển khai Frontend với React Native Expo}{7}{subsection.4.2}%
+\contentsline {subsection}{\numberline {4.3}Quản lý trạng thái và điều hướng}{8}{subsection.4.3}%
+\contentsline {subsection}{\numberline {4.4}Triển khai Backend}{8}{subsection.4.4}%
+\contentsline {subsection}{\numberline {4.5}Cơ sở dữ liệu Redis}{9}{subsection.4.5}%
+\contentsline {subsection}{\numberline {4.6}Cơ chế phân phối ngẫu nhiên}{9}{subsection.4.6}%
+\contentsline {subsection}{\numberline {4.7}Giới hạn triển khai}{9}{subsection.4.7}%

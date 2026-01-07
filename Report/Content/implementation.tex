@@ -1,0 +1,64 @@
+% ===================== Content/implementation.tex =====================
+\section{Triển khai hệ thống}
+
+\subsection{Tổng quan}
+SeaWhisper được triển khai theo mô hình client--server, trong đó ứng dụng di động đóng vai trò là client và hệ thống backend chịu trách nhiệm xử lý nghiệp vụ, lưu trữ dữ liệu và phân phối nội dung giữa người dùng. Cách tiếp cận này giúp tách biệt rõ ràng giữa giao diện người dùng và logic xử lý, đồng thời tạo điều kiện thuận lợi cho việc mở rộng và bảo trì hệ thống.
+
+Trong phạm vi MVP, hệ thống tập trung vào việc đảm bảo các chức năng cốt lõi hoạt động ổn định, với kiến trúc đơn giản nhưng đủ linh hoạt cho các phiên bản tiếp theo.
+
+\subsection{Triển khai Frontend với React Native Expo}
+Phía frontend của ứng dụng được phát triển bằng React Native kết hợp với Expo. Expo được lựa chọn nhằm đơn giản hóa quá trình thiết lập môi trường, giảm thời gian cấu hình ban đầu và hỗ trợ tốt cho việc phát triển nhanh ứng dụng di động đa nền tảng.
+
+Các lợi ích chính khi sử dụng Expo trong dự án bao gồm:
+\begin{itemize}
+    \item Không cần cấu hình thủ công Android SDK hoặc iOS build trong giai đoạn phát triển.
+    \item Hỗ trợ hot reload, giúp tăng tốc quá trình thử nghiệm và chỉnh sửa giao diện.
+    \item Cung cấp sẵn nhiều API phổ biến phục vụ phát triển ứng dụng di động.
+\end{itemize}
+
+Ứng dụng được tổ chức theo hướng component--based, trong đó mỗi màn hình (screen) và mỗi thành phần giao diện được tách thành các component độc lập. Điều này giúp mã nguồn dễ đọc, dễ tái sử dụng và thuận tiện cho việc mở rộng tính năng.
+
+Các chức năng chính phía frontend bao gồm:
+\begin{itemize}
+    \item Màn hình gửi chai: cho phép người dùng nhập nội dung tâm sự và gửi lên hệ thống.
+    \item Màn hình nhặt chai: hiển thị ngẫu nhiên một chai từ người dùng khác.
+    \item Màn hình phản hồi: cho phép gửi phản hồi cảm xúc hoặc tin nhắn ngắn.
+    \item Màn hình lưu trữ: hiển thị danh sách các chai đã gửi hoặc đã nhận.
+\end{itemize}
+
+Giao tiếp với backend được thực hiện thông qua các API REST, sử dụng giao thức HTTP và định dạng dữ liệu JSON.
+
+\subsection{Quản lý trạng thái và điều hướng}
+Ứng dụng sử dụng cơ chế quản lý trạng thái cục bộ để lưu trữ thông tin tạm thời như nội dung chai đang hiển thị hoặc lịch sử chai đã nhận trong phiên làm việc. Việc điều hướng giữa các màn hình được thiết kế theo luồng đơn giản, đảm bảo người dùng có thể thực hiện các thao tác chính chỉ với số bước tối thiểu.
+
+Thiết kế điều hướng ưu tiên trải nghiệm liền mạch, hạn chế các thao tác phức tạp nhằm giữ đúng định hướng “healing” của ứng dụng.
+
+\subsection{Triển khai Backend}
+Backend của hệ thống được xây dựng bằng FastAPI, một framework Python hiện đại, phù hợp cho việc xây dựng các dịch vụ web hiệu năng cao. FastAPI được lựa chọn nhờ khả năng xử lý bất đồng bộ, cú pháp rõ ràng và hỗ trợ tự động sinh tài liệu API.
+
+Các chức năng chính của backend bao gồm:
+\begin{itemize}
+    \item Tiếp nhận và xử lý yêu cầu gửi chai từ client.
+    \item Phân phối ngẫu nhiên chai cho người dùng khi có yêu cầu nhặt chai.
+    \item Quản lý trạng thái chai nhằm tránh việc một chai được phân phối nhiều lần.
+\end{itemize}
+
+Trong MVP, hệ thống không yêu cầu cơ chế xác thực phức tạp. Người dùng được định danh tạm thời bằng các mã định danh ngẫu nhiên do backend sinh ra, đảm bảo tính ẩn danh trong quá trình sử dụng.
+
+\subsection{Cơ sở dữ liệu Redis}
+Redis được sử dụng làm cơ sở dữ liệu chính trong phạm vi MVP. Với đặc tính lưu trữ dữ liệu trong bộ nhớ và hỗ trợ tốt cho các thao tác hàng đợi, Redis phù hợp cho việc lưu trữ và phân phối các “chai” trong SeaWhisper.
+
+Mỗi chai được lưu trữ dưới dạng một đối tượng dữ liệu bao gồm nội dung, trạng thái và thời điểm tạo. Việc sử dụng Redis giúp:
+\begin{itemize}
+    \item Giảm độ trễ khi truy xuất dữ liệu.
+    \item Đơn giản hóa việc triển khai cơ chế lấy chai ngẫu nhiên.
+    \item Phù hợp với dữ liệu mang tính tạm thời của MVP.
+\end{itemize}
+
+\subsection{Cơ chế phân phối ngẫu nhiên}
+Khi người dùng thực hiện thao tác nhặt chai, backend sẽ truy xuất một chai chưa được đọc từ Redis theo cơ chế ngẫu nhiên. Sau khi chai được trả về cho client, trạng thái của chai được cập nhật để tránh việc phân phối lại cho người dùng khác.
+
+Cơ chế này đảm bảo tính công bằng, ngẫu nhiên và mang lại trải nghiệm bất ngờ cho người dùng, đúng với ý tưởng ban đầu của dự án.
+
+\subsection{Giới hạn triển khai}
+Do tập trung vào hoàn thiện MVP trong thời gian giới hạn, hệ thống hiện tại chưa triển khai các chức năng nâng cao như lưu trữ lâu dài, phân tích nội dung tự động hoặc cá nhân hóa trải nghiệm người dùng. Tuy nhiên, kiến trúc được thiết kế theo hướng mở, cho phép tích hợp thêm các thành phần này trong các phiên bản tiếp theo.

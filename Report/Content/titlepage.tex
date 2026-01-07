@@ -1,0 +1,75 @@
+% ===================== Content/titlepage.tex =====================
+\begin{titlepage}
+\thispagestyle{empty}
+
+\begin{tikzpicture}[remember picture, overlay]
+  \draw[line width = 4pt] ($(current page.north west) + (0.4in,-0.5in)$)
+        rectangle ($(current page.south east) + (-0.4in,0.5in)$);
+  \draw[line width=1.5pt]
+        ($(current page.north west) + (0.45in,-0.55in)$)
+        rectangle
+        ($(current page.south east) + (-0.45in,0.55in)$);
+\end{tikzpicture}
+
+\vspace{-1cm}
+\begin{center}
+    \fontsize{14}{16}\selectfont\textbf{ĐẠI HỌC QUỐC GIA TP. HỒ CHÍ MINH}\\[0.2cm]
+    \fontsize{14}{16}\selectfont\textbf{TRƯỜNG ĐẠI HỌC BÁCH KHOA}\\[0.2cm]
+    \fontsize{14}{16}\selectfont\textbf{KHOA KHOA HỌC VÀ KỸ THUẬT MÁY TÍNH}
+\end{center}
+
+\vspace{0.35cm}
+
+\begin{center}
+\includegraphics[width=5cm]{Image/hcmut.png}
+\end{center}
+
+\vspace{0.35cm}
+
+\begin{center}
+    \fontsize{16}{18}\selectfont\textbf{BÁO CÁO BÀI TẬP LỚN}
+\end{center}
+
+\vspace{0.65cm}
+
+\begin{center}
+    \setstretch{1.4}
+    {\fontsize{20}{22}\selectfont\textbf{SEAWHISPER}}\\[0.2cm]
+    {\huge \bfseries ỨNG DỤNG CHIA SẺ ẨN DANH \\ \& CHỮA LÀNH TÂM HỒN} \\
+    {\fontsize{13}{15}\selectfont Môn học: Phát triển Ứng dụng Di động}\\[0.2cm]
+    {\fontsize{12}{14}\selectfont Học kỳ: 2025--2026 (HK251)}\\[0.2cm]
+\end{center}
+
+\vspace{0.6cm}
+
+\begin{center}
+\fontsize{12.5}{14.5}\selectfont
+\renewcommand{\arraystretch}{1.25}
+
+% Dòng hội đồng + giảng viên
+\begin{tabular}{@{}ll@{}}
+    \textbf{Giảng viên:} & Hoàng Lê Hải Thanh \\
+\end{tabular}
+
+
+\vspace{0.35cm}
+
+\begin{tabular}{@{}l c@{}}
+    \textbf{Sinh viên thực hiện} & \textbf{MSSV} \\[0.15cm]
+    Trần Minh Khang   & 2211472 \\
+    Hà Thái Toàn      & 2213524 \\
+    Đoàn Nhật Tiến    & 22      \\
+    Lê Minh Tuấn      & 22      \\
+\end{tabular}
+
+\vspace{0.55cm}
+
+\end{center}
+
+\vfill
+
+\begin{center}
+    \fontsize{13}{15}\selectfont TP. Hồ Chí Minh, năm 2026
+\end{center}
+
+\end{titlepage}
