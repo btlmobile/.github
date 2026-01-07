@@ -1,0 +1,49 @@
+\begin{titlepage}
+    % --- VẼ KHUNG VIỀN (BORDER) ---
+    \begin{tikzpicture}[remember picture, overlay]
+        \draw [line width=3pt]
+            ($(current page.north west) + (3.0cm,-2.0cm)$)
+            rectangle
+            ($(current page.south east) + (-2.0cm,2.0cm)$);
+        \draw [line width=1pt]
+            ($(current page.north west) + (3.15cm,-2.15cm)$)
+            rectangle
+            ($(current page.south east) + (-2.15cm,2.15cm)$);
+    \end{tikzpicture}
+
+    \begin{center}
+        \vspace{-0.5cm}
+        \textbf{\large ĐẠI HỌC QUỐC GIA TP. HỒ CHÍ MINH}\\
+        \textbf{\large TRƯỜNG ĐẠI HỌC BÁCH KHOA}\\
+        \textbf{\large KHOA KHOA HỌC VÀ KỸ THUẬT MÁY TÍNH}
+        
+        \vspace{2.5cm}
+        
+        % Logo (Nhớ file hcmut.png phải có trong thư mục img/)
+        \includegraphics[width=0.35\textwidth]{img/hcmut.png} 
+        
+        \vspace{2.5cm}
+        
+        {\Large \bfseries BÁO CÁO ĐỒ ÁN MÔN HỌC} \\
+        \vspace{0.5cm}
+        {\huge \bfseries ỨNG DỤNG CHIA SẺ ẨN DANH \\ \& CHỮA LÀNH TÂM HỒN} \\
+        \vspace{0.5cm}
+        {\huge \bfseries SEAWHISPER}
+        
+        \vspace{3cm}
+        
+        \begin{table}[h]
+            \centering
+            \begin{tabular}{l l}
+                \textbf{GVHD:} & Hoàng Lê Hải Thanh \\
+                 & \\
+                \textbf{Nhóm thực hiện:} & SeaWhisper Team \\
+            \end{tabular}
+        \end{table}
+        
+        \vfill
+        
+        \textbf{TP. HỒ CHÍ MINH, THÁNG 01/2026}
+        
+    \end{center}
+\end{titlepage}
