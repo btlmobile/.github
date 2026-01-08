@@ -1,57 +1,44 @@
-% ===================== Content/features.tex =====================
 \section{Tính năng và chức năng hệ thống}
 
 \subsection{Tổng quan các tính năng}
-SeaWhisper được thiết kế xoay quanh trải nghiệm chia sẻ ẩn danh mang tính chữa lành. Trong phạm vi MVP, hệ thống tập trung vào các chức năng cốt lõi nhằm đảm bảo luồng sử dụng đơn giản, ổn định và dễ tiếp cận đối với người dùng lần đầu.
-
-Các tính năng được ưu tiên triển khai bao gồm gửi “chai”, nhận “chai” ngẫu nhiên và phản hồi cảm xúc cơ bản. Những chức năng này phản ánh trực tiếp ý tưởng trung tâm của dự án và đủ để đánh giá tính khả thi của sản phẩm.
+SeaWhisper được thiết kế xoay quanh trải nghiệm chia sẻ ẩn danh mang tính chữa lành.
+Trong MVP, hệ thống tập trung vào các luồng cốt lõi: thả chai, nhặt chai, phản hồi và lưu trữ.
+Thiết kế này bám sát ý tưởng “message in a bottle”, tạo yếu tố ngẫu nhiên và kết nối gián tiếp giữa người dùng.
 
 \subsection{Gửi chai (Send Bottle)}
-Chức năng gửi chai cho phép người dùng viết và gửi một thông điệp ẩn danh ra “biển”. Nội dung được lưu trữ trên hệ thống mà không gắn với thông tin nhận dạng cá nhân của người gửi.
+Người dùng có thể tạo một “chai” bằng cách nhập nội dung tâm sự và gửi lên hệ thống.
+Về mặt trải nghiệm, màn hình gửi được tối giản để người dùng tập trung vào việc viết.
 
-Quy trình gửi chai gồm các bước:
+Về mặt hệ thống:
 \begin{itemize}
-    \item Người dùng nhập nội dung tâm sự dưới dạng văn bản.
-    \item Hệ thống tạo một đối tượng “chai” và lưu trữ vào cơ sở dữ liệu.
-    \item Chai được đưa vào hàng đợi chờ người dùng khác nhặt.
+  \item Client gửi request tạo bottle.
+  \item Backend validate dữ liệu (rỗng/quá dài).
+  \item Bottle được lưu vào Redis với định danh và timestamp.
 \end{itemize}
-
-Thiết kế này giúp giảm rào cản tâm lý khi chia sẻ và khuyến khích người dùng bộc lộ cảm xúc thật.
 
 \subsection{Nhận chai ngẫu nhiên (Receive Bottle)}
-Chức năng nhận chai cho phép người dùng ngẫu nhiên nhận được một thông điệp từ người khác. Việc phân phối chai không dựa trên mối quan hệ hay hồ sơ người dùng, đảm bảo tính ẩn danh và bất ngờ trong trải nghiệm.
+Khi người dùng nhặt chai, hệ thống trả về ngẫu nhiên một bottle đang khả dụng.
+Tính “ngẫu nhiên có kiểm soát” giúp tăng cảm giác khám phá, đồng thời tránh lặp chai nhiều lần trong cùng ngữ cảnh xử lý.
 
-Khi người dùng chọn nhặt chai:
+Trường hợp không có bottle phù hợp, backend trả về 204 No Content để client hiển thị trạng thái “biển đang vắng”.
+
+\subsection{Phản hồi (Chat/Reply)}
+Sau khi đọc nội dung, người dùng có thể phản hồi bằng tin nhắn ngắn trong giao diện chat tối giản.
+Trong MVP, cơ chế phản hồi được thiết kế để hạn chế toxic bằng việc:
 \begin{itemize}
-    \item Hệ thống lấy một chai chưa được đọc từ cơ sở dữ liệu.
-    \item Nội dung chai được hiển thị cho người dùng.
-    \item Trạng thái chai được cập nhật để tránh phân phối trùng lặp.
+  \item Giới hạn độ dài phản hồi (nếu có).
+  \item UI tập trung vào động viên/đồng cảm.
 \end{itemize}
-
-Cơ chế này giúp tạo cảm giác kết nối ngẫu nhiên và khuyến khích hành vi lắng nghe.
-
-\subsection{Phản hồi cảm xúc}
-Thay vì cho phép bình luận trực tiếp, SeaWhisper trong MVP cung cấp cơ chế phản hồi cảm xúc đơn giản. Người nhận có thể gửi lại một phản hồi nhẹ nhàng nhằm thể hiện sự đồng cảm.
-
-Các hình thức phản hồi trong MVP gồm:
-\begin{itemize}
-    \item Biểu tượng cảm xúc (emoji) được định nghĩa sẵn.
-    \item Tin nhắn ngắn mang tính động viên.
-\end{itemize}
-
-Cách tiếp cận này giúp hạn chế tranh cãi, giảm khả năng phát sinh nội dung tiêu cực và giữ đúng định hướng “healing” của ứng dụng.
 
 \subsection{Lưu trữ và xem lại chai}
-Hệ thống cho phép người dùng lưu lại các chai đã nhận hoặc đã gửi để xem lại sau. Tính năng này giúp người dùng ghi nhớ những khoảnh khắc có ý nghĩa và tăng mức độ gắn bó với ứng dụng.
-
-Trong MVP, chức năng lưu trữ được triển khai ở mức cơ bản, chủ yếu phục vụ mục đích xem lại lịch sử tương tác.
+Người dùng có thể lưu bottle vào “balo lưu trữ” và xem danh sách đã lưu theo trang.
+Mục tiêu là tăng tính gắn bó: người dùng có thể quay lại đọc các thông điệp có ý nghĩa.
 
 \subsection{Giới hạn của MVP}
-Do giới hạn về thời gian và phạm vi, MVP chưa triển khai các chức năng nâng cao như:
+MVP chưa triển khai:
 \begin{itemize}
-    \item Phân tích cảm xúc tự động.
-    \item Bộ lọc nội dung thông minh.
-    \item Cá nhân hóa trải nghiệm theo hành vi người dùng.
+  \item Kiểm duyệt nội dung nâng cao (moderation) ở mức production.
+  \item Analytics tự động (Firebase/GA).
+  \item Cá nhân hóa theo chủ đề/hành vi.
 \end{itemize}
-
-Những chức năng này được xác định là hướng mở rộng cho các phiên bản tiếp theo của SeaWhisper.
+Các mục này được trình bày ở phần định hướng cải tiến.

@@ -1,0 +1,82 @@
+% ===================== Content/deployment.tex =====================
+\section{Chiến lược triển khai (Deployment Strategy)}
+
+\subsection{Tổng quan}
+Trong phạm vi MVP, SeaWhisper được triển khai theo hướng đơn giản, linh hoạt và dễ kiểm soát, phù hợp với môi trường học tập và thử nghiệm. Chiến lược triển khai tập trung vào việc đảm bảo backend hoạt động ổn định, frontend có thể truy cập backend từ thiết bị thật, đồng thời cung cấp các điểm truy cập công khai để phục vụ đánh giá và demo.
+
+Hệ thống được chia thành các thành phần triển khai chính: backend API, tài liệu API trực tuyến (Swagger), landing page giới thiệu dự án và hệ thống quản lý mã nguồn.
+
+\subsection{Triển khai Backend}
+Backend của SeaWhisper được xây dựng bằng FastAPI và chạy dưới dạng một dịch vụ độc lập. Trong giai đoạn phát triển và demo, backend được triển khai trên môi trường cục bộ (local environment), cho phép nhóm dễ dàng theo dõi log, debug và chỉnh sửa nhanh.
+
+Để phục vụ việc truy cập từ thiết bị di động và bên ngoài mạng nội bộ, backend được expose ra Internet thông qua dịch vụ tạo tunnel.
+
+\subsection{Expose Backend bằng Ngrok}
+Ngrok được sử dụng để tạo tunnel từ backend cục bộ ra Internet, giúp client di động và giảng viên có thể truy cập API mà không cần triển khai lên hạ tầng cloud phức tạp.
+
+Lợi ích của việc sử dụng ngrok:
+\begin{itemize}
+    \item Không cần cấu hình máy chủ hoặc domain riêng.
+    \item Cho phép truy cập backend từ thiết bị thật và môi trường bên ngoài.
+    \item Phù hợp cho demo, kiểm thử và đánh giá MVP.
+\end{itemize}
+
+Thông qua ngrok, backend FastAPI được expose với một địa chỉ công khai và được sử dụng xuyên suốt trong quá trình phát triển frontend.
+
+\subsection{Triển khai tài liệu API (Swagger)}
+FastAPI tự động sinh tài liệu API theo chuẩn OpenAPI và cung cấp giao diện Swagger UI. Swagger được sử dụng như một công cụ trung tâm để:
+\begin{itemize}
+    \item Kiểm tra trạng thái các endpoint.
+    \item Thử nghiệm API độc lập với ứng dụng di động.
+    \item Đối chiếu giữa thiết kế API và triển khai thực tế.
+\end{itemize}
+
+Tài liệu API trực tuyến của hệ thống hiện đang được triển khai tại địa chỉ:
+
+\begin{center}
+\url{https://unsatiating-clustered-phoenix.ngrok-free.dev/swagger}
+\end{center}
+
+Việc cung cấp Swagger online giúp tăng tính minh bạch và hỗ trợ quá trình đánh giá hệ thống.
+
+\subsection{Triển khai Landing Page}
+Bên cạnh ứng dụng di động, dự án SeaWhisper có một landing page công khai nhằm giới thiệu tổng quan ý tưởng, mục tiêu và các tính năng chính của hệ thống. Landing page đóng vai trò là điểm truy cập thông tin chính thức cho dự án.
+
+Landing page được triển khai thông qua GitHub Pages và có thể truy cập tại:
+
+\begin{center}
+\url{https://github.com/btlmobile/showcase}
+\end{center}
+
+Trang này hỗ trợ:
+\begin{itemize}
+    \item Giới thiệu ý tưởng và định hướng của SeaWhisper.
+    \item Trình bày các tính năng chính của ứng dụng.
+    \item Cung cấp liên kết đến mã nguồn và tài liệu liên quan.
+\end{itemize}
+
+\subsection{Quản lý mã nguồn và cộng tác nhóm}
+Toàn bộ mã nguồn của dự án được quản lý thông qua GitHub Organization. Việc sử dụng GitHub Organization cho phép nhóm phân chia rõ ràng các repository, quản lý quyền truy cập và theo dõi quá trình đóng góp của từng thành viên.
+
+GitHub Organization của dự án có thể truy cập tại:
+
+\begin{center}
+\url{https://github.com/btlmobile}
+\end{center}
+
+GitHub được sử dụng để:
+\begin{itemize}
+    \item Lưu trữ và quản lý mã nguồn frontend và backend.
+    \item Theo dõi lịch sử commit và quá trình phát triển.
+    \item Hỗ trợ làm việc nhóm và phối hợp giữa các thành viên.
+\end{itemize}
+
+\subsection{Đánh giá chiến lược triển khai}
+Chiến lược triển khai hiện tại đáp ứng tốt yêu cầu của phiên bản MVP:
+\begin{itemize}
+    \item Đảm bảo backend hoạt động ổn định và dễ truy cập.
+    \item Hỗ trợ kiểm thử và demo hệ thống một cách thuận tiện.
+    \item Giảm chi phí và độ phức tạp trong giai đoạn đầu.
+\end{itemize}
+
+Trong các phiên bản tương lai, hệ thống có thể được mở rộng bằng cách triển khai backend lên các nền tảng cloud (AWS, Railway, Render) và bổ sung CI/CD để tự động hóa quá trình build và deploy.

@@ -1,0 +1,153 @@
+% ===================== Content/ux.tex =====================
+\section{Trải nghiệm người dùng (UX) và luồng thao tác MVP}
+
+\subsection{Tổng quan thiết kế trải nghiệm}
+SeaWhisper được thiết kế theo định hướng tối giản và mang tính chữa lành, nhằm giúp người dùng dễ dàng chia sẻ cảm xúc mà không bị áp lực hay phân tâm. Các luồng thao tác trong MVP được rút gọn, tập trung vào hai hành động chính là \textit{thả chai} và \textit{nhặt chai}, đồng thời cung cấp các chức năng phụ như trò chuyện, lưu trữ và quản lý tài khoản.
+
+Ứng dụng hỗ trợ hai chế độ giao diện sáng và tối cho hầu hết các màn hình chức năng, ngoại trừ các màn hình xác thực ban đầu.
+
+\subsection{Luồng 1: Xác thực người dùng (Đăng ký / Đăng nhập)}
+Luồng xác thực cho phép người dùng tạo và sử dụng tài khoản để truy cập các chức năng của ứng dụng. Trong MVP, màn hình đăng ký và đăng nhập được thiết kế đơn giản, rõ ràng và chỉ sử dụng một giao diện chung (không tách riêng giao diện sáng/tối).
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.28\textwidth]{Image/UI/register.png}
+    \hspace{0.03\textwidth}
+    \includegraphics[width=0.28\textwidth]{Image/UI/login.png}
+    \caption{Màn hình đăng ký và đăng nhập}
+    \label{fig:ui-auth}
+\end{figure}
+
+\subsection{Luồng 2: Trang chủ và điều hướng}
+Sau khi đăng nhập, người dùng được đưa tới trang chủ, nơi hiển thị các hành động chính của ứng dụng. Từ đây, người dùng có thể điều hướng tới các chức năng như nhặt chai, thả chai, quản lý tài khoản và cài đặt.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.28\textwidth]{Image/UI/home.png}
+    \hspace{0.03\textwidth}
+    \includegraphics[width=0.28\textwidth]{Image/UI/home_night.png}
+    \caption{Trang chủ ở chế độ sáng và tối}
+    \label{fig:ui-home}
+\end{figure}
+
+\subsection{Luồng 3: Thả chai (Send Bottle)}
+Luồng thả chai cho phép người dùng nhập nội dung tâm sự và gửi ra hệ thống. Sau khi xác nhận gửi, ứng dụng hiển thị trạng thái đang gửi để tạo cảm giác chai đang “trôi” trên biển.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.28\textwidth]{Image/UI/send_mess.png}
+    \hspace{0.03\textwidth}
+    \includegraphics[width=0.28\textwidth]{Image/UI/send_mess_2.png}
+    \hspace{0.03\textwidth}
+    \includegraphics[width=0.28\textwidth]{Image/UI/loading_send.png}
+    \caption{Luồng thả chai ở chế độ sáng}
+    \label{fig:ui-send-light}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.28\textwidth]{Image/UI/send_mess_night.png}
+    \hspace{0.03\textwidth}
+    \includegraphics[width=0.28\textwidth]{Image/UI/send_mess_night_2.png}
+    \hspace{0.03\textwidth}
+    \includegraphics[width=0.28\textwidth]{Image/UI/loading_send_night.png}
+    \caption{Luồng thả chai ở chế độ tối}
+    \label{fig:ui-send-night}
+\end{figure}
+
+\subsection{Luồng 4: Nhặt chai và xem nội dung}
+Khi người dùng chọn nhặt chai, ứng dụng hiển thị trạng thái chờ, sau đó thông báo mở chai và nội dung chi tiết của chai được nhận.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.28\textwidth]{Image/UI/loading.png}
+    \hspace{0.03\textwidth}
+    \includegraphics[width=0.28\textwidth]{Image/UI/noti_seal.png}
+    \hspace{0.03\textwidth}
+    \includegraphics[width=0.28\textwidth]{Image/UI/detail.png}
+    \caption{Luồng nhặt chai và xem nội dung (chế độ sáng)}
+    \label{fig:ui-receive-light}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.28\textwidth]{Image/UI/loading_night.png}
+    \hspace{0.03\textwidth}
+    \includegraphics[width=0.28\textwidth]{Image/UI/noti_seal_night.png}
+    \hspace{0.03\textwidth}
+    \includegraphics[width=0.28\textwidth]{Image/UI/detail_night.png}
+    \caption{Luồng nhặt chai và xem nội dung (chế độ tối)}
+    \label{fig:ui-receive-night}
+\end{figure}
+
+\subsection{Luồng 5: Trò chuyện và phản hồi}
+Sau khi đọc chai, người dùng có thể phản hồi thông qua giao diện trò chuyện đơn giản. Chức năng này tạo tương tác hai chiều nhưng vẫn giữ mức độ nhẹ nhàng.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.28\textwidth]{Image/UI/chat.png}
+    \hspace{0.03\textwidth}
+    \includegraphics[width=0.28\textwidth]{Image/UI/chat2.png}
+    \caption{Giao diện trò chuyện (chế độ sáng)}
+    \label{fig:ui-chat-light}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.28\textwidth]{Image/UI/chat_night.png}
+    \hspace{0.03\textwidth}
+    \includegraphics[width=0.28\textwidth]{Image/UI/chat_night_2.png}
+    \caption{Giao diện trò chuyện (chế độ tối)}
+    \label{fig:ui-chat-night}
+\end{figure}
+
+\subsection{Luồng 6: Lưu trữ chai}
+Người dùng có thể lưu lại các chai đã nhận để xem lại sau. Ứng dụng cung cấp cả trạng thái danh sách có dữ liệu và danh sách rỗng.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.28\textwidth]{Image/UI/balo.png}
+    \hspace{0.03\textwidth}
+    \includegraphics[width=0.28\textwidth]{Image/UI/balo_empty.png}
+    \hspace{0.03\textwidth}
+    \includegraphics[width=0.28\textwidth]{Image/UI/balo_night.png}
+    \caption{Chức năng lưu trữ chai ở chế độ sáng và tối}
+    \label{fig:ui-storage}
+\end{figure}
+
+\subsection{Luồng 7: Quản lý tài khoản và cài đặt}
+Ứng dụng cho phép người dùng quản lý thông tin tài khoản và các thiết lập cơ bản, bao gồm chuyển đổi giao diện sáng/tối.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.28\textwidth]{Image/UI/account.png}
+    \hspace{0.03\textwidth}
+    \includegraphics[width=0.28\textwidth]{Image/UI/account_night.png}
+    \caption{Màn hình tài khoản ở chế độ sáng và tối}
+    \label{fig:ui-account}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.28\textwidth]{Image/UI/setting.png}
+    \hspace{0.03\textwidth}
+    \includegraphics[width=0.28\textwidth]{Image/UI/setting_night.png}
+    \caption{Màn hình cài đặt ở chế độ sáng và tối}
+    \label{fig:ui-setting}
+\end{figure}
+
+\subsection{Luồng 8: Giới thiệu và hỗ trợ}
+Ứng dụng cung cấp các màn hình giới thiệu và hỗ trợ để giải thích ý tưởng hệ thống và cung cấp thông tin cần thiết cho người dùng.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.28\textwidth]{Image/UI/introduce.png}
+    \hspace{0.03\textwidth}
+    \includegraphics[width=0.28\textwidth]{Image/UI/introduce_night.png}
+    \hspace{0.03\textwidth}
+    \includegraphics[width=0.28\textwidth]{Image/UI/support.png}
+    \hspace{0.03\textwidth}
+    \includegraphics[width=0.28\textwidth]{Image/UI/support_night.png}
+    \caption{Màn hình giới thiệu và hỗ trợ ở chế độ sáng và tối}
+    \label{fig:ui-about-support}
+\end{figure}

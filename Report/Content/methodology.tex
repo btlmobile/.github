@@ -1,46 +1,49 @@
-% ===================== Content/methodology.tex =====================
 \section{Phương pháp và quy trình thực hiện}
 
 \subsection{Cách tiếp cận phát triển}
-Dự án SeaWhisper được phát triển theo hướng tiếp cận lặp (iterative development), tập trung vào việc xây dựng và hoàn thiện các chức năng cốt lõi của MVP trước khi mở rộng thêm các tính năng nâng cao. Nhóm ưu tiên triển khai những thành phần mang lại giá trị trực tiếp cho người dùng trong thời gian giới hạn của học kỳ.
+Dự án SeaWhisper được phát triển theo hướng lặp (\textit{iterative development}).
+Thay vì cố gắng hoàn thiện đầy đủ ngay từ đầu, nhóm ưu tiên xây dựng nhanh một phiên bản khả dụng (MVP) để:
+(1) kiểm chứng ý tưởng “thả chai – nhặt chai”, (2) đánh giá trải nghiệm người dùng, và (3) giảm rủi ro kỹ thuật trong thời gian giới hạn học kỳ \cite{mvp_concept}.
 
-Thay vì xây dựng một hệ thống phức tạp ngay từ đầu, dự án tập trung vào việc hiện thực hóa ý tưởng chính là mô hình “thả chai – nhặt chai”, đảm bảo luồng sử dụng đơn giản, ổn định và dễ mở rộng trong tương lai.
+Với cách tiếp cận này, mỗi vòng lặp gồm: đặc tả yêu cầu nhỏ $\rightarrow$ thiết kế UI/flow $\rightarrow$ triển khai $\rightarrow$ kiểm thử thủ công $\rightarrow$ cải tiến.
 
 \subsection{Quy trình làm việc nhóm}
-Nhóm áp dụng quy trình làm việc theo các bước sau:
+Nhóm tổ chức công việc theo các bước:
 \begin{itemize}
-    \item Phân tích yêu cầu và xác định phạm vi MVP.
-    \item Thiết kế luồng người dùng (user flow) và kiến trúc tổng thể.
-    \item Phân chia nhiệm vụ theo vai trò Frontend và Backend.
-    \item Triển khai từng chức năng độc lập, sau đó tích hợp hệ thống.
-    \item Kiểm thử và tinh chỉnh dựa trên trải nghiệm sử dụng.
+  \item Phân tích yêu cầu và chốt phạm vi MVP.
+  \item Thiết kế UI trên Figma, thống nhất luồng thao tác.
+  \item Chia task Frontend/Backend theo module (Auth, Bottle, StoredBottle, UI screens).
+  \item Tích hợp API và hoàn thiện luồng end-to-end.
+  \item Kiểm thử bằng Swagger UI/Postman và chạy thử trên thiết bị thật.
 \end{itemize}
 
-Các nhiệm vụ và tiến độ được quản lý thông qua GitHub Project Board, cho phép theo dõi trạng thái công việc và phối hợp giữa các thành viên một cách hiệu quả.
+Mã nguồn và cộng tác nhóm được quản lý qua GitHub (branching, pull request, review), giúp theo dõi lịch sử thay đổi và phân chia trách nhiệm rõ ràng \cite{github_flow}.
 
 \subsection{Công cụ và nền tảng sử dụng}
-Trong quá trình phát triển, nhóm sử dụng các công cụ sau:
+Các công cụ chính:
 \begin{itemize}
-    \item \textbf{GitHub}: quản lý mã nguồn, phân chia nhánh và theo dõi tiến độ.
-    \item \textbf{Figma}: thiết kế giao diện và mô phỏng luồng người dùng.
-    \item \textbf{Visual Studio Code}: môi trường phát triển chính cho cả frontend và backend.
-    \item \textbf{Postman}: kiểm thử và xác minh các API backend.
+  \item GitHub: quản lý mã nguồn, issues, pull requests \cite{github_docs}.
+  \item Figma: thiết kế UI và prototype.
+  \item React Native + Expo: phát triển ứng dụng di động đa nền tảng \cite{react_native_docs, expo_docs}.
+  \item FastAPI: triển khai REST API, tự sinh tài liệu OpenAPI/Swagger \cite{fastapi_docs, openapi_spec}.
+  \item Redis: lưu trữ dữ liệu nhanh cho MVP \cite{redis_docs}.
+  \item Swagger UI/Postman: kiểm thử API thủ công \cite{swagger_docs, postman_docs}.
 \end{itemize}
 
 \subsection{Quyết định phạm vi MVP}
-Do giới hạn về thời gian và nguồn lực, nhóm quyết định tập trung vào các chức năng thiết yếu nhất của hệ thống, bao gồm:
+Do giới hạn thời gian, nhóm tập trung vào các chức năng thiết yếu:
 \begin{itemize}
-    \item Gửi nội dung ẩn danh dưới dạng “chai”.
-    \item Nhận ngẫu nhiên “chai” từ người dùng khác.
-    \item Phản hồi cảm xúc cơ bản và lưu trữ lịch sử tương tác.
+  \item Auth cơ bản (đăng ký/đăng nhập) để phục vụ lưu trữ “bộ sưu tập”.
+  \item Tạo bottle và lấy bottle ngẫu nhiên.
+  \item Lưu bottle, xem danh sách đã lưu, xóa bottle.
 \end{itemize}
 
-Các chức năng nâng cao như phân tích cảm xúc tự động hoặc bộ lọc thông minh được xác định là hướng phát triển trong các phiên bản tiếp theo, nhưng không nằm trong phạm vi triển khai của MVP.
+Các hạng mục nâng cao như phân tích cảm xúc tự động, lọc nội dung nâng cao, cá nhân hóa feed được đưa vào định hướng tương lai.
 
 \subsection{Đánh giá phương pháp}
-Cách tiếp cận tập trung vào MVP giúp nhóm:
+Cách làm tập trung MVP giúp nhóm:
 \begin{itemize}
-    \item Hoàn thành được sản phẩm khả dụng trong thời gian học kỳ.
-    \item Giảm độ phức tạp trong quá trình triển khai và kiểm thử.
-    \item Dễ dàng mở rộng hệ thống trong tương lai khi có thêm thời gian và tài nguyên.
+  \item Hoàn thành sản phẩm end-to-end trong học kỳ.
+  \item Giảm độ phức tạp thiết kế dữ liệu và hạ tầng.
+  \item Có cơ sở đo lường/đánh giá (survey) để đề xuất cải tiến có căn cứ.
 \end{itemize}

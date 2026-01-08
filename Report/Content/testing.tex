@@ -1,0 +1,104 @@
+\section{Testing Coverage Report}
+
+\subsection{Mục tiêu kiểm thử}
+
+Mục tiêu của hoạt động kiểm thử trong dự án SeaWhisper là:
+\begin{itemize}
+    \item Đảm bảo các chức năng cốt lõi của ứng dụng hoạt động đúng theo thiết kế.
+    \item Phát hiện sớm các lỗi liên quan đến logic xử lý, bảo mật và khả năng bảo trì mã nguồn.
+    \item Đánh giá chất lượng mã nguồn trong phạm vi phát triển Minimum Viable Product (MVP).
+\end{itemize}
+
+Do giới hạn về thời gian và nguồn lực, nhóm tập trung kiểm thử ở mức độ hệ thống và phân tích chất lượng mã, thay vì triển khai đầy đủ các bộ kiểm thử tự động (unit test) cho toàn bộ module.
+
+\subsection{Công cụ kiểm thử và đánh giá chất lượng}
+
+Nhóm sử dụng các công cụ sau trong quá trình kiểm thử và đánh giá:
+
+\begin{itemize}
+    \item \textbf{SonarCloud}: Phân tích chất lượng mã nguồn, bao gồm bảo mật (Security), độ tin cậy (Reliability), khả năng bảo trì (Maintainability), độ trùng lặp mã (Duplications) và độ bao phủ kiểm thử (Coverage).
+    \item \textbf{Swagger UI}: Kiểm thử thủ công (manual testing) các API backend thông qua giao diện tài liệu REST API.
+    \item \textbf{Kiểm thử thủ công trên thiết bị}: Xác nhận luồng người dùng (user flow) trên ứng dụng mobile React Native Expo.
+\end{itemize}
+
+\subsection{Phân tích chất lượng mã nguồn với SonarCloud}
+
+Dự án SeaWhisper sử dụng SonarCloud để phân tích chất lượng mã nguồn cho các repository thuộc GitHub Organization của nhóm. Dashboard tổng quan của các project có thể truy cập công khai tại:
+
+\begin{center}
+\url{https://sonarcloud.io/organizations/btlmobile/projects}
+\end{center}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{Image/sonarcloud_overview.png}
+    \caption{Tổng quan phân tích chất lượng mã nguồn dự án SeaWhisper trên SonarCloud}
+    \label{fig:sonarcloud}
+\end{figure}
+
+Hình~\ref{fig:sonarcloud} thể hiện kết quả phân tích chất lượng mã nguồn của các thành phần chính trong hệ thống, bao gồm frontend, backend và landing page.
+
+\subsection{Kết quả phân tích Frontend}
+
+Phần frontend của ứng dụng SeaWhisper được phát triển bằng React Native Expo và TypeScript. Kết quả phân tích trên SonarCloud cho thấy:
+
+\begin{itemize}
+    \item Frontend đạt \textbf{Quality Gate: Passed}.
+    \item Không phát hiện vấn đề nghiêm trọng liên quan đến bảo mật và độ tin cậy.
+    \item Độ trùng lặp mã ở mức rất thấp.
+    \item Cấu trúc mã rõ ràng, dễ bảo trì trong phạm vi MVP.
+\end{itemize}
+
+Điều này cho thấy phần frontend đáp ứng tốt các tiêu chí chất lượng mã và phù hợp cho việc mở rộng trong các phiên bản tiếp theo.
+
+\subsection{Kết quả phân tích Backend}
+
+Backend của hệ thống được xây dựng bằng FastAPI và Redis. Kết quả phân tích SonarCloud cho thấy backend hiện tại chưa đạt Quality Gate do tồn tại một số vấn đề liên quan đến:
+
+\begin{itemize}
+    \item Một số cảnh báo về bảo mật và code smell.
+    \item Chưa triển khai đầy đủ các kiểm thử tự động dẫn đến độ bao phủ kiểm thử thấp.
+\end{itemize}
+
+Tuy nhiên, trong phạm vi MVP, nhóm ưu tiên hoàn thiện các chức năng nghiệp vụ chính như xác thực người dùng, tạo bottle, lấy bottle ngẫu nhiên và quản lý bottle đã lưu. Các vấn đề được SonarCloud chỉ ra được xem là cơ sở quan trọng cho việc cải thiện chất lượng mã nguồn trong các giai đoạn phát triển tiếp theo.
+
+\subsection{Kiểm thử API Backend}
+
+Các API backend được kiểm thử thủ công thông qua Swagger UI, bao gồm các nhóm chức năng chính:
+
+\begin{itemize}
+    \item Xác thực người dùng (đăng ký, đăng nhập).
+    \item Tạo bottle và lấy bottle ngẫu nhiên.
+    \item Lưu bottle, xem danh sách bottle đã lưu và xóa bottle đã lưu.
+\end{itemize}
+
+Quá trình kiểm thử xác nhận rằng:
+\begin{itemize}
+    \item Các API phản hồi đúng mã trạng thái HTTP.
+    \item Dữ liệu trả về đúng theo thiết kế schema.
+    \item Các trường hợp lỗi phổ biến được xử lý hợp lý (ví dụ: bottle không tồn tại, truy cập không hợp lệ).
+\end{itemize}
+
+\subsection{Kiểm thử luồng người dùng (User Flow)}
+
+Ngoài kiểm thử API, nhóm tiến hành kiểm thử thủ công luồng người dùng trên ứng dụng mobile, bao gồm:
+
+\begin{itemize}
+    \item Luồng đăng ký và đăng nhập.
+    \item Luồng thả chai (Send Bottle).
+    \item Luồng nhặt chai (Receive Bottle).
+    \item Luồng lưu bottle và quản lý bộ sưu tập cá nhân.
+\end{itemize}
+
+Kết quả cho thấy các luồng chính hoạt động ổn định, đáp ứng được trải nghiệm người dùng theo mục tiêu của ứng dụng SeaWhisper.
+
+\subsection{Đánh giá tổng thể và hạn chế}
+
+Tổng thể, hoạt động kiểm thử của dự án đạt yêu cầu đối với một sản phẩm ở giai đoạn MVP. Tuy nhiên, vẫn tồn tại một số hạn chế:
+
+\begin{itemize}
+    \item Chưa triển khai đầy đủ unit test và integration test cho backend.
+    \item Độ bao phủ kiểm thử tự động còn thấp.
+\end{itemize}
+
+Các hạn chế này được ghi nhận và xem là định hướng cải tiến quan trọng cho các phiên bản tiếp theo, khi dự án được mở rộng về quy mô và tính năng.

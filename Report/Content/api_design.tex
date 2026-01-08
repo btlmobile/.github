@@ -1,0 +1,174 @@
+% ===================== Content/api_design.tex =====================
+\section{Thiết kế Web Service (API)}
+
+\subsection{Tổng quan}
+SeaWhisper sử dụng kiến trúc RESTful API để kết nối giữa ứng dụng di động (React Native Expo) và backend (FastAPI). Các API được thiết kế xoay quanh các chức năng cốt lõi của hệ thống, bao gồm xác thực người dùng, thả chai, nhặt chai và quản lý danh sách chai đã lưu.
+
+Backend được xây dựng bằng FastAPI, hỗ trợ tự động sinh tài liệu API theo chuẩn OpenAPI và cung cấp giao diện Swagger để phục vụ phát triển, kiểm thử và đánh giá hệ thống.
+
+\subsection{Quy ước thiết kế API}
+Các quy ước chung được áp dụng cho toàn bộ hệ thống:
+\begin{itemize}
+    \item Tuân thủ mô hình RESTful.
+    \item Sử dụng các phương thức HTTP tiêu chuẩn: \texttt{GET}, \texttt{POST}, \texttt{DELETE}.
+    \item Dữ liệu trao đổi sử dụng định dạng \texttt{JSON}.
+    \item Các API yêu cầu xác thực sử dụng header \texttt{Authorization: Bearer <token>}.
+    \item Trạng thái xử lý được biểu diễn thông qua mã trạng thái HTTP.
+\end{itemize}
+
+\subsection{Nhóm API xác thực người dùng (auth)}
+Nhóm API này chịu trách nhiệm đăng ký và đăng nhập người dùng, cung cấp định danh để phục vụ các chức năng yêu cầu quyền truy cập.
+
+\subsubsection{POST /auth/register -- Đăng ký tài khoản}
+\textbf{Mô tả:}  
+Tạo tài khoản người dùng mới trong hệ thống.
+
+\textbf{Request body:}
+\begin{verbatim}
+{
+  "username": "string",
+  "password": "string"
+}
+\end{verbatim}
+
+\textbf{Phản hồi:}
+\begin{itemize}
+    \item \textbf{201 Created:} Đăng ký thành công.
+    \item \textbf{409 Conflict:} Tên người dùng đã tồn tại.
+\end{itemize}
+
+\subsubsection{POST /auth/login -- Đăng nhập}
+\textbf{Mô tả:}  
+Xác thực thông tin đăng nhập và trả về token sử dụng cho các API yêu cầu xác thực.
+
+\textbf{Request body:}
+\begin{verbatim}
+{
+  "username": "string",
+  "password": "string"
+}
+\end{verbatim}
+
+\textbf{Phản hồi:}
+\begin{itemize}
+    \item \textbf{200 OK:} Đăng nhập thành công, trả về token.
+    \item \textbf{401 Unauthorized:} Thông tin đăng nhập không hợp lệ.
+\end{itemize}
+
+\subsection{Nhóm API thả chai và nhặt chai (sea-bottle)}
+Đây là nhóm API cốt lõi, hiện thực hóa ý tưởng “message in a bottle” của hệ thống.
+
+\subsubsection{POST /sea/bottle -- Tạo chai mới}
+\textbf{Mô tả:}  
+Cho phép người dùng gửi nội dung tâm sự dưới dạng một chai mới.
+
+\textbf{Request body:}
+\begin{verbatim}
+{
+  "content": "Nội dung tâm sự"
+}
+\end{verbatim}
+
+\textbf{Ghi chú:}  
+API này có thể hoạt động với hoặc không có token xác thực. Nếu có token, hệ thống lưu thông tin người tạo ở mức nội bộ nhưng không hiển thị ra giao diện.
+
+\textbf{Phản hồi:}
+\begin{itemize}
+    \item \textbf{201 Created:} Chai được tạo thành công.
+    \item \textbf{400 Bad Request:} Nội dung không hợp lệ.
+\end{itemize}
+
+\subsubsection{GET /sea/bottle -- Lấy chai ngẫu nhiên}
+\textbf{Mô tả:}  
+Trả về ngẫu nhiên một chai hiện có trong hệ thống.
+
+\textbf{Phản hồi:}
+\begin{itemize}
+    \item \textbf{200 OK:} Trả về nội dung chai.
+    \item \textbf{204 No Content:} Không còn chai khả dụng.
+\end{itemize}
+
+Sau khi chai được trả về, backend đảm bảo không phân phối trùng lặp trong cùng một ngữ cảnh xử lý.
+
+\subsection{Nhóm API quản lý chai đã lưu (api-store-bottle)}
+Nhóm API này cho phép người dùng lưu, xem và quản lý các chai đã lưu trong bộ sưu tập cá nhân.
+
+\subsubsection{POST /api/store-bottle -- Lưu chai}
+\textbf{Mô tả:}  
+Lưu một chai vào danh sách lưu trữ của người dùng hiện tại.
+
+\textbf{Request body:}
+\begin{verbatim}
+{
+  "bottle_id": "string"
+}
+\end{verbatim}
+
+\textbf{Phản hồi:}
+\begin{itemize}
+    \item \textbf{201 Created:} Lưu chai thành công.
+    \item \textbf{409 Conflict:} Chai đã tồn tại trong danh sách lưu.
+\end{itemize}
+
+\subsubsection{GET /api/store-bottle -- Lấy danh sách chai đã lưu}
+\textbf{Mô tả:}  
+Trả về danh sách các chai đã lưu của người dùng, hỗ trợ phân trang thông qua tham số truy vấn.
+
+\textbf{Query parameter:}
+\begin{itemize}
+    \item \texttt{page}: số trang (ví dụ: \texttt{page=1})
+\end{itemize}
+
+\textbf{Phản hồi:}
+\begin{itemize}
+    \item \textbf{200 OK:} Trả về danh sách chai đã lưu.
+\end{itemize}
+
+\subsubsection{GET /api/store-bottle/\{stored\_bottle\_id\} -- Lấy chi tiết chai đã lưu}
+\textbf{Mô tả:}  
+Trả về thông tin chi tiết của một chai đã lưu cụ thể.
+
+\textbf{Phản hồi:}
+\begin{itemize}
+    \item \textbf{200 OK:} Trả về thông tin chi tiết chai.
+    \item \textbf{404 Not Found:} Không tìm thấy chai đã lưu.
+\end{itemize}
+
+\subsubsection{DELETE /api/store-bottle/\{stored\_bottle\_id\} -- Xóa chai đã lưu}
+\textbf{Mô tả:}  
+Xóa một chai khỏi danh sách lưu trữ của người dùng.
+
+\textbf{Phản hồi:}
+\begin{itemize}
+    \item \textbf{204 No Content:} Xóa thành công.
+    \item \textbf{404 Not Found:} Không tìm thấy chai cần xóa.
+\end{itemize}
+
+\subsection{Nhóm API hệ thống}
+\subsubsection{GET /health -- Health check}
+\textbf{Mô tả:}  
+API dùng để kiểm tra trạng thái hoạt động của backend.
+
+\textbf{Phản hồi:}
+\begin{itemize}
+    \item \textbf{200 OK:} Backend hoạt động bình thường.
+\end{itemize}
+
+\subsubsection{GET /api/me -- Lấy thông tin người dùng hiện tại}
+\textbf{Mô tả:}  
+Trả về thông tin cơ bản của người dùng hiện đang đăng nhập, dựa trên token xác thực.
+
+\textbf{Phản hồi:}
+\begin{itemize}
+    \item \textbf{200 OK:} Trả về thông tin người dùng.
+    \item \textbf{401 Unauthorized:} Token không hợp lệ hoặc hết hạn.
+\end{itemize}
+
+\subsection{Tài liệu API trực tuyến (Swagger)}
+Toàn bộ các API được mô tả trong chương này đều được triển khai thực tế và công bố thông qua Swagger UI tại địa chỉ:
+
+\begin{center}
+\url{https://unsatiating-clustered-phoenix.ngrok-free.dev/swagger}
+\end{center}
+
+Swagger UI hỗ trợ xem chi tiết endpoint, tham số, cấu trúc request/response và thử nghiệm API trực tiếp, đảm bảo tính nhất quán giữa thiết kế và triển khai thực tế của hệ thống.

@@ -5,8 +5,6 @@
 \usepackage[english,vietnamese]{babel}
 \selectlanguage{vietnamese}
 \usepackage[utf8]{inputenc}
-\usepackage{tikz}
-\usetikzlibrary{calc}
 
 % =============== CƠ BẢN ===============
 \usepackage{geometry}
@@ -20,12 +18,28 @@
 \usepackage{amsmath}
 \usepackage{hyperref}
 
+% =============== TIKZ (cho titlepage) ===============
+\usepackage{tikz}
+\usetikzlibrary{calc}
+
+% =============== FOOTER (giống mẫu bạn gửi) ===============
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+
+\pagestyle{fancy}
+\fancyhf{} % xóa header/footer mặc định
+
+\fancyfoot[L]{\scriptsize Khoa Khoa Học và Kỹ Thuật Máy Tính}
+\fancyfoot[R]{\scriptsize Page \thepage/\pageref{LastPage}}
+
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0.4pt}
+
 % =============== TRÍCH DẪN ===============
 \usepackage[
   backend=biber,
   style=numeric,
-  sorting=none,
-  language=english
+  sorting=none
 ]{biblatex}
 \addbibresource{refs.bib}
 
@@ -41,7 +55,7 @@
 \begin{document}
 
 % ===== TRANG BÌA =====
-\input{Content/titlepage.tex}
+\input{Content/titlepage.tex} % titlepage đã có \thispagestyle{empty}
 
 % ===== TÓM TẮT =====
 \newpage
@@ -57,14 +71,14 @@
 \input{Content/methodology}
 \input{Content/features}
 \input{Content/implementation}
-% \input{Content/ux}
-% \input{Content/architecture}
-% \input{Content/api_design}
-% \input{Content/deployment}
-% \input{Content/testing}
-% \input{Content/survey_analytics}
-% \input{Content/evaluation_improvement}
-% \input{Content/conclusion}
+\input{Content/ux}
+\input{Content/architecture}
+\input{Content/api_design}
+\input{Content/deployment}
+\input{Content/testing}
+\input{Content/survey_analytics}
+\input{Content/evaluation_improvement}
+\input{Content/conclusion}
 
 % ===== TÀI LIỆU THAM KHẢO =====
 \newpage

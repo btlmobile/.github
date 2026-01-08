@@ -1,0 +1,154 @@
+% ===================== Content/architecture.tex =====================
+\section{Kiến trúc hệ thống}
+
+\subsection{Tổng quan kiến trúc}
+SeaWhisper được xây dựng theo mô hình client--server nhằm tách biệt rõ ràng giữa tầng giao diện (frontend) và tầng xử lý nghiệp vụ (backend). Ứng dụng di động (React Native Expo) đóng vai trò client, chịu trách nhiệm hiển thị giao diện, thu thập dữ liệu người dùng và gửi/nhận dữ liệu thông qua HTTP. Backend (FastAPI) là trung tâm xử lý nghiệp vụ: xác thực, quản lý chai, phân phối chai ngẫu nhiên, lưu trữ và truy vấn dữ liệu. Redis được sử dụng như cơ sở dữ liệu chính trong MVP nhờ tốc độ truy xuất cao và phù hợp với các thao tác kiểu hàng đợi/danh sách.
+
+Thiết kế kiến trúc của dự án hướng đến các tiêu chí:
+\begin{itemize}
+    \item \textbf{Đơn giản, dễ triển khai:} phù hợp phạm vi MVP và thời gian học kỳ.
+    \item \textbf{Đảm bảo tính ẩn danh:} không hiển thị thông tin cá nhân khi chia sẻ nội dung.
+    \item \textbf{Hiệu năng tốt:} phản hồi nhanh cho thao tác gửi/nhặt chai.
+    \item \textbf{Dễ mở rộng:} có thể bổ sung thêm dịch vụ (moderation, analytics) ở các phiên bản sau.
+\end{itemize}
+
+\subsection{Sơ đồ triển khai tổng thể và luồng dữ liệu}
+Hình~\ref{fig:deployment} minh họa sơ đồ triển khai tổng thể. Ứng dụng di động gọi đến backend qua API REST. Trong giai đoạn phát triển/demo, hệ thống có thể sử dụng cơ chế expose API (ví dụ qua ngrok) để thiết bị thật truy cập backend nội bộ. Backend xử lý request và đọc/ghi dữ liệu vào Redis.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.92\textwidth]{Image/architecture/deployment_diagram.jpg}
+    \caption{Sơ đồ triển khai tổng thể hệ thống SeaWhisper}
+    \label{fig:deployment}
+\end{figure}
+
+\subsubsection{Luồng dữ liệu chính}
+Các luồng dữ liệu chính trong MVP gồm:
+\begin{itemize}
+    \item \textbf{Đăng ký / Đăng nhập:} client gửi thông tin đăng ký/đăng nhập $\rightarrow$ backend xác thực $\rightarrow$ Redis lưu/đọc thông tin người dùng $\rightarrow$ trả về token (nếu có) và thông tin phiên.
+    \item \textbf{Thả chai:} client gửi nội dung chai $\rightarrow$ backend tạo bản ghi Bottle $\rightarrow$ lưu Redis $\rightarrow$ trả về trạng thái thành công.
+    \item \textbf{Nhặt chai:} client gửi yêu cầu lấy chai $\rightarrow$ backend chọn ngẫu nhiên chai chưa được đọc $\rightarrow$ trả về nội dung $\rightarrow$ cập nhật trạng thái để tránh phân phối lặp.
+    \item \textbf{Lưu chai:} client yêu cầu lưu $\rightarrow$ backend tạo StoredBottle gắn với user $\rightarrow$ Redis lưu mapping $\rightarrow$ trả về kết quả.
+\end{itemize}
+
+\subsubsection{Quy ước giao tiếp}
+Client và backend giao tiếp bằng:
+\begin{itemize}
+    \item \textbf{HTTP/HTTPS} theo RESTful API.
+    \item Dữ liệu trao đổi ở định dạng \textbf{JSON}.
+    \item Token (nếu có) được gửi qua header \texttt{Authorization: Bearer <token>}.
+\end{itemize}
+
+\subsection{Phân rã thành phần hệ thống}
+\subsubsection{Frontend (React Native Expo)}
+Frontend chịu trách nhiệm:
+\begin{itemize}
+    \item Hiển thị UI theo luồng MVP (đăng nhập, trang chủ, thả chai, nhặt chai, lưu trữ, chat, cài đặt).
+    \item Thực hiện kiểm tra dữ liệu đầu vào cơ bản (ví dụ: nội dung không rỗng).
+    \item Gọi API và xử lý trạng thái tải (loading), lỗi (error) và kết quả (success).
+    \item Quản lý trạng thái phiên (session) và điều hướng giữa các màn hình.
+\end{itemize}
+
+\subsubsection{Backend (FastAPI)}
+Backend được tổ chức theo hướng tách lớp để dễ bảo trì:
+\begin{itemize}
+    \item \textbf{Router/Controller}: định nghĩa endpoint, nhận request và trả response.
+    \item \textbf{Service}: chứa logic nghiệp vụ (tạo chai, chọn chai ngẫu nhiên, lưu chai).
+    \item \textbf{Repository/Data access}: thao tác đọc/ghi Redis.
+    \item \textbf{Schema/DTO}: chuẩn hóa cấu trúc dữ liệu vào/ra (request/response).
+\end{itemize}
+
+Các nhóm chức năng chính:
+\begin{itemize}
+    \item \textbf{Auth}: đăng ký/đăng nhập, tạo token và quản lý user.
+    \item \textbf{Bottle}: tạo chai, lấy chai ngẫu nhiên, cập nhật trạng thái chai.
+    \item \textbf{StoredBottle}: lưu chai, xem danh sách đã lưu, xóa chai đã lưu.
+\end{itemize}
+
+\subsubsection{Database (Redis)}
+Redis đảm nhiệm vai trò lưu trữ dữ liệu tạm thời/nhanh trong MVP, hỗ trợ:
+\begin{itemize}
+    \item Lưu user và thông tin xác thực.
+    \item Lưu danh sách chai và trạng thái chai.
+    \item Lưu danh sách chai đã lưu theo từng user (hỗ trợ phân trang mức cơ bản).
+\end{itemize}
+
+\subsection{Use Case Diagram và phạm vi chức năng}
+Hình~\ref{fig:usecase} mô tả các tác nhân và các chức năng chính. Trong hệ thống có thể xem hai nhóm tác nhân:
+\begin{itemize}
+    \item \textbf{Guest (chưa đăng nhập):} có thể truy cập một số chức năng cơ bản tùy thiết kế, nhưng trong MVP tập trung cho người dùng có tài khoản để phục vụ lưu trữ.
+    \item \textbf{Registered User (đã đăng nhập):} thực hiện đầy đủ thao tác thả chai, nhặt chai, chat, lưu/xem/xóa chai đã lưu.
+\end{itemize}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\textwidth]{Image/architecture/use_case.jpg}
+    \caption{Use Case Diagram của hệ thống SeaWhisper}
+    \label{fig:usecase}
+\end{figure}
+
+Từ use case, các yêu cầu chức năng MVP có thể tóm tắt:
+\begin{itemize}
+    \item Đăng ký / đăng nhập.
+    \item Thả chai (tạo nội dung).
+    \item Nhặt chai (lấy ngẫu nhiên).
+    \item Trò chuyện/ phản hồi.
+    \item Lưu chai và quản lý danh sách đã lưu.
+\end{itemize}
+
+\subsection{Thiết kế dữ liệu (ERD) và mô hình lưu trữ}
+Hình~\ref{fig:erd} minh họa ERD của hệ thống. Trong phạm vi MVP, dữ liệu tập trung vào ba thực thể chính: \texttt{AuthUser}, \texttt{Bottle} và \texttt{StoredBottle}. Mối quan hệ thể hiện rằng một người dùng có thể lưu nhiều chai, và mỗi chai có thể được lưu bởi nhiều người dùng (tùy thiết kế), do đó \texttt{StoredBottle} đóng vai trò bảng liên kết.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\textwidth]{Image/architecture/erd.jpg}
+    \caption{Sơ đồ ERD của hệ thống}
+    \label{fig:erd}
+\end{figure}
+
+\subsubsection{Mô tả thực thể}
+\begin{itemize}
+    \item \textbf{AuthUser}:
+    \begin{itemize}
+        \item Lưu thông tin tài khoản phục vụ xác thực (ví dụ: username/email, mật khẩu đã hash, thời điểm tạo).
+        \item Có thể kèm các metadata tối thiểu phục vụ trải nghiệm (ví dụ: cài đặt theme).
+    \end{itemize}
+
+    \item \textbf{Bottle}:
+    \begin{itemize}
+        \item Lưu nội dung chai (text), thời điểm tạo, và trạng thái (ví dụ: chưa đọc/đã phân phối).
+        \item Có thể lưu \texttt{creatorId} ở dạng định danh nội bộ (không hiển thị ra UI) để phục vụ kiểm soát hệ thống.
+    \end{itemize}
+
+    \item \textbf{StoredBottle}:
+    \begin{itemize}
+        \item Lưu quan hệ giữa user và chai đã lưu (userId, bottleId), cùng thời điểm lưu.
+        \item Phục vụ truy vấn danh sách chai đã lưu theo từng user.
+    \end{itemize}
+\end{itemize}
+
+\subsubsection{Lý do chọn Redis cho MVP}
+Redis phù hợp trong MVP do:
+\begin{itemize}
+    \item Truy xuất nhanh, phù hợp tương tác thời gian thực.
+    \item Hỗ trợ cấu trúc dữ liệu danh sách/tập hợp, thuận tiện cho hàng đợi chai và danh sách lưu.
+    \item Triển khai đơn giản, giảm thời gian thiết kế schema phức tạp.
+\end{itemize}
+Tuy nhiên, trong triển khai thực tế quy mô lớn, hệ thống có thể cần chuyển sang cơ sở dữ liệu bền vững hơn (PostgreSQL/MySQL) hoặc kết hợp Redis làm cache.
+
+\subsection{Bảo mật và tính ẩn danh ở mức kiến trúc}
+Trong phạm vi MVP, hệ thống đảm bảo tính ẩn danh ở mức hiển thị và luồng dữ liệu:
+\begin{itemize}
+    \item Nội dung chai không hiển thị danh tính người gửi trên UI.
+    \item Client chỉ trao đổi với backend bằng token/định danh nội bộ.
+    \item Phân quyền cơ bản: các API lưu/xem/xóa chai đã lưu yêu cầu user hợp lệ.
+\end{itemize}
+
+\subsection{Đánh giá kiến trúc và khả năng mở rộng}
+Kiến trúc hiện tại đáp ứng tốt yêu cầu MVP và có thể mở rộng theo các hướng:
+\begin{itemize}
+    \item Tách backend thành các service độc lập (Auth, Bottle, StoredBottle) khi hệ thống lớn hơn.
+    \item Bổ sung cơ chế logging/monitoring và phân tích hành vi người dùng.
+    \item Thay đổi chiến lược phân phối chai (theo chủ đề, theo thời gian, theo mức độ tương tác).
+    \item Triển khai cơ chế kiểm duyệt nội dung hoặc báo cáo vi phạm khi có thêm thời gian và tài nguyên.
+\end{itemize}

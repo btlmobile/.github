@@ -1,0 +1,61 @@
+\section{Đánh giá dự án và những điểm cần cải thiện}
+
+\subsection{Đánh giá mức độ đáp ứng mục tiêu dự án}
+
+Dựa trên kết quả triển khai và phân tích ở các chương trước, có thể nhận định rằng dự án SeaWhisper đã đáp ứng tốt các mục tiêu ban đầu được đặt ra cho một sản phẩm ở giai đoạn Minimum Viable Product (MVP).
+
+Cụ thể, ứng dụng đã:
+\begin{itemize}
+    \item Cung cấp một nền tảng chia sẻ cảm xúc ẩn danh với các chức năng cốt lõi hoạt động ổn định.
+    \item Xây dựng trải nghiệm người dùng hướng tới sự nhẹ nhàng và thư giãn thông qua thiết kế giao diện.
+    \item Triển khai thành công hệ thống backend hỗ trợ xác thực người dùng, quản lý bottle và lưu trữ dữ liệu.
+\end{itemize}
+
+Các kết quả khảo sát người dùng và kiểm thử thực tế cho thấy ứng dụng đáp ứng tương đối tốt nhu cầu chia sẻ cảm xúc và khám phá nội dung ẩn danh của nhóm người dùng mục tiêu.
+
+\subsection{Đánh giá về trải nghiệm người dùng (UX/UI)}
+
+Từ kết quả khảo sát mức độ hài lòng, giao diện người dùng của SeaWhisper được đánh giá tích cực, đặc biệt về màu sắc, bố cục và phong cách thiết kế lấy cảm hứng từ biển. Thiết kế này góp phần tạo ra cảm giác an toàn và thư giãn cho người dùng khi tương tác với ứng dụng.
+
+Các luồng người dùng chính như đăng nhập, thả chai, nhặt chai và lưu bottle được đánh giá là dễ tiếp cận và dễ sử dụng. Tuy nhiên, một số người dùng vẫn đánh giá ở mức trung lập hoặc chưa hài lòng, cho thấy vẫn còn dư địa để cải thiện trải nghiệm người dùng trong các phiên bản tiếp theo.
+
+\subsection{Đánh giá về chức năng và hiệu năng hệ thống}
+
+Về mặt chức năng, các tính năng cốt lõi của hệ thống đã được triển khai đầy đủ và hoạt động đúng theo thiết kế. Backend FastAPI kết hợp với Redis đáp ứng tốt yêu cầu xử lý dữ liệu nhanh và đơn giản, phù hợp với phạm vi MVP.
+
+Tuy nhiên, do tập trung vào việc hoàn thiện chức năng nghiệp vụ, hệ thống chưa được tối ưu toàn diện về mặt hiệu năng và khả năng mở rộng. Một số vấn đề về chất lượng mã nguồn ở backend đã được SonarCloud chỉ ra, phản ánh nhu cầu cải thiện trong các giai đoạn phát triển tiếp theo.
+
+\subsection{Đánh giá về chất lượng mã nguồn}
+
+Phân tích chất lượng mã nguồn bằng SonarCloud cho thấy sự khác biệt rõ rệt giữa các thành phần của hệ thống. Phần frontend và landing page đạt Quality Gate, cho thấy mã nguồn được tổ chức tương đối tốt, dễ đọc và dễ bảo trì.
+
+Ngược lại, phần backend vẫn tồn tại một số cảnh báo liên quan đến bảo mật và khả năng bảo trì. Điều này được xem là chấp nhận được trong phạm vi MVP, khi nhóm ưu tiên phát triển chức năng hơn là tối ưu mã nguồn ở mức độ sâu.
+
+\subsection{Hạn chế của dự án}
+
+Mặc dù đạt được các mục tiêu chính, dự án vẫn tồn tại một số hạn chế:
+
+\begin{itemize}
+    \item Chưa triển khai đầy đủ các kiểm thử tự động như unit test và integration test.
+    \item Chưa tích hợp công cụ phân tích hành vi người dùng tự động như Google Analytics hoặc Firebase Analytics.
+    \item Một số tính năng nâng cao như lọc nội dung hoặc gợi ý phản hồi cảm xúc chưa được triển khai do giới hạn thời gian.
+\end{itemize}
+
+Các hạn chế này phản ánh đúng bối cảnh và phạm vi của một dự án MVP trong khuôn khổ môn học.
+
+\subsection{Định hướng cải tiến và phát triển trong tương lai}
+
+Dựa trên các đánh giá và phản hồi từ người dùng, một số hướng cải tiến cho SeaWhisper trong tương lai được đề xuất như sau:
+
+\begin{itemize}
+    \item Bổ sung các cơ chế lọc và phân loại nội dung để nâng cao trải nghiệm người dùng.
+    \item Triển khai các bộ kiểm thử tự động nhằm nâng cao độ tin cậy và chất lượng mã nguồn.
+    \item Tích hợp công cụ phân tích hành vi người dùng để thu thập dữ liệu sử dụng thực tế.
+    \item Mở rộng các hình thức tương tác và phản hồi cảm xúc giữa người dùng.
+\end{itemize}
+
+Những định hướng này sẽ giúp SeaWhisper phát triển từ một MVP thành một sản phẩm hoàn chỉnh và bền vững hơn trong tương lai.
+
+\subsection{Tổng kết}
+
+Tổng thể, SeaWhisper là một dự án đáp ứng tốt các yêu cầu của một ứng dụng mobile ở giai đoạn MVP. Dự án không chỉ thể hiện khả năng triển khai kỹ thuật mà còn cho thấy sự quan tâm đến trải nghiệm người dùng và yếu tố cảm xúc. Các hạn chế hiện tại được xem là cơ hội để tiếp tục cải tiến và phát triển trong các phiên bản tiếp theo.

@@ -1,34 +1,47 @@
-% ===================== Content/introduction.tex =====================
 \section{Giới thiệu}
 
 \subsection{Bối cảnh và vấn đề}
-Trong bối cảnh mạng xã hội phát triển mạnh, nhu cầu chia sẻ cảm xúc cá nhân của người trẻ ngày càng tăng. Tuy nhiên, việc công khai danh tính thường đi kèm rủi ro bị phán xét, bị soi xét đời tư hoặc gặp các phản hồi tiêu cực. Các ứng dụng ẩn danh hiện có giúp giảm rào cản chia sẻ, nhưng lại dễ trở thành môi trường độc hại do thiếu cơ chế kiểm duyệt và định hướng tương tác tích cực. Điều này khiến người dùng có thể bị ảnh hưởng tâm lý sau khi tiếp nhận các nội dung hoặc bình luận tiêu cực.
+Trong bối cảnh mạng xã hội phát triển mạnh, nhu cầu chia sẻ cảm xúc cá nhân của người trẻ ngày càng tăng.
+Tuy nhiên, việc chia sẻ dưới danh tính thật thường đi kèm rủi ro bị phán xét, bị soi xét đời tư, hoặc nhận phản hồi tiêu cực.
+Các nền tảng \textit{ẩn danh} giúp giảm rào cản khi bộc lộ cảm xúc, nhưng đồng thời cũng dễ trở thành môi trường độc hại do thiếu cơ chế định hướng tương tác và kiểm duyệt phù hợp \cite{anonymous_social_risks}.
+
+Với các ứng dụng ẩn danh phổ biến, người dùng có thể gặp tình huống: nội dung bị công kích, phản hồi mang tính chế giễu, hoặc xuất hiện hành vi bắt nạt trên không gian số.
+Các yếu tố này có thể tác động tiêu cực đến sức khỏe tinh thần, đặc biệt với nhóm người dùng trẻ hoặc đang ở trạng thái cảm xúc nhạy cảm \cite{online_harassment_mental_health}.
+Do đó, bài toán đặt ra không chỉ là \textit{ẩn danh để dễ nói}, mà còn là \textit{thiết kế trải nghiệm để an toàn}.
 
 \subsection{Mục tiêu dự án}
-Dự án SeaWhisper được xây dựng nhằm tạo ra một không gian ẩn danh nhưng an toàn, hướng đến trải nghiệm chữa lành. Các mục tiêu chính gồm:
+SeaWhisper được xây dựng nhằm tạo ra một không gian ẩn danh nhưng an toàn, hướng đến trải nghiệm chữa lành (healing-oriented).
+Các mục tiêu chính gồm:
 \begin{itemize}
-    \item Cung cấp cơ chế chia sẻ ẩn danh theo mô hình “thả chai” và “nhặt chai”, giúp người dùng giãi bày cảm xúc một cách tự nhiên.
-    \item Khuyến khích tương tác đồng cảm, hạn chế tranh cãi và công kích bằng cách ưu tiên phản hồi nhẹ nhàng.
-    \item Áp dụng bộ lọc nội dung (AI Filter) để giảm toxic, hạn chế nội dung gây hại và nâng cao mức độ an toàn cộng đồng.
-    \item Xây dựng trải nghiệm sử dụng thư giãn, tối giản và mang cảm giác “ocean-inspired”.
+  \item Cung cấp cơ chế chia sẻ ẩn danh theo mô hình “thả chai – nhặt chai” (message in a bottle), giảm áp lực khi chia sẻ.
+  \item Khuyến khích tương tác đồng cảm, hạn chế tranh cãi/công kích bằng thiết kế luồng phản hồi đơn giản và có định hướng.
+  \item Đảm bảo hệ thống dễ triển khai ở mức MVP nhưng vẫn có khả năng mở rộng cho các phiên bản sau.
 \end{itemize}
 
 \subsection{Phạm vi và đối tượng hướng tới}
-SeaWhisper tập trung vào nhóm người dùng trẻ (đặc biệt Gen Z), sinh viên và những người hướng nội có nhu cầu giải tỏa tâm trạng, tìm kiếm sự đồng cảm nhưng không muốn lộ danh tính. Trong phạm vi MVP, dự án ưu tiên các chức năng cốt lõi gồm: gửi “chai”, nhận ngẫu nhiên “chai” và phản hồi cảm xúc đơn giản.
+Dự án tập trung vào nhóm người dùng trẻ (đặc biệt Gen Z), sinh viên, và những người có nhu cầu giải tỏa tâm trạng, tìm kiếm sự đồng cảm nhưng không muốn lộ danh tính.
+Trong phạm vi MVP, dự án ưu tiên các chức năng cốt lõi:
+\begin{itemize}
+  \item Đăng ký/đăng nhập (tối thiểu để hỗ trợ lưu trữ và quản lý dữ liệu cá nhân).
+  \item Thả chai (tạo thông điệp).
+  \item Nhặt chai ngẫu nhiên và xem nội dung.
+  \item Phản hồi đơn giản và lưu chai vào “bộ sưu tập”.
+\end{itemize}
 
 \subsection{Giá trị thực tiễn và tác động}
-SeaWhisper hướng tới mô hình “C2C cảm xúc”, nơi mỗi người vừa là người chia sẻ vừa là người lắng nghe. Nếu triển khai thực tế, ứng dụng có thể:
+SeaWhisper hướng tới mô hình “C2C cảm xúc”: mỗi người vừa là người chia sẻ vừa là người lắng nghe.
+Nếu triển khai thực tế, ứng dụng có thể:
 \begin{itemize}
-    \item Giảm áp lực tâm lý khi người dùng có kênh giãi bày an toàn.
-    \item Hạn chế sự lan truyền độc hại thường thấy trong các nền tảng ẩn danh.
-    \item Khuyến khích hành vi đồng cảm và hỗ trợ tinh thần giữa người dùng.
+  \item Giảm áp lực tâm lý bằng việc cung cấp một kênh giãi bày ít ràng buộc hơn so với mạng xã hội danh tính thật \cite{self_disclosure_online}.
+  \item Hạn chế độc hại thường thấy trong nền tảng ẩn danh bằng cách điều tiết cách tương tác và cơ chế phản hồi.
+  \item Khuyến khích hành vi đồng cảm, tạo cảm giác “được lắng nghe” trong cộng đồng người dùng.
 \end{itemize}
 
 \subsection{Cấu trúc báo cáo}
 Phần còn lại của báo cáo được tổ chức như sau:
 \begin{itemize}
-    \item Phần \textbf{Phương pháp và quy trình phát triển}: mô tả cách nhóm tổ chức công việc, công cụ cộng tác và lý do lựa chọn giải pháp.
-    \item Phần \textbf{Tính năng và chức năng}: trình bày MVP và các mở rộng.
-    \item Phần \textbf{Triển khai}: mô tả công nghệ, kiến trúc và thiết kế API.
-    \item Phần \textbf{Đánh giá}: kiểm thử, khảo sát người dùng, phân tích hành vi và đề xuất cải tiến.
+  \item Phương pháp và quy trình: mô tả cách tiếp cận lặp, tổ chức nhóm, công cụ.
+  \item Tính năng: trình bày MVP và giới hạn.
+  \item Triển khai và kiến trúc: mô tả công nghệ, dữ liệu, thiết kế API.
+  \item Đánh giá: kiểm thử, khảo sát hài lòng và định hướng cải tiến.
 \end{itemize}
